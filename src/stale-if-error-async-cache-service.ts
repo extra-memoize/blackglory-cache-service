@@ -14,20 +14,22 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
   ) {}
 
   async get(key: string): Promise<
-  | [State.Miss, undefined]
+  | [State.Miss]
   | [State.Hit | State.StaleIfError, T]
   > {
     const item = await this.client.getWithMetadata(this.namespace, key)
-    if (isNull(item)) return [State.Miss, undefined]
-
-    const elapsed = Date.now() - item.metadata.updatedAt
-    if (elapsed <= this.timeToLive) {
-      return [State.Hit, this.fromString(item.value)]
-    } else if (elapsed <= this.timeToLive + this.staleIfError) {
-      return [State.StaleIfError, this.fromString(item.value)]
+    if (isNull(item)) {
+      return [State.Miss]
     } else {
-      // just in case
-      return [State.Miss, undefined]
+      const elapsed = Date.now() - item.metadata.updatedAt
+      if (elapsed <= this.timeToLive) {
+        return [State.Hit, this.fromString(item.value)]
+      } else if (elapsed <= this.timeToLive + this.staleIfError) {
+        return [State.StaleIfError, this.fromString(item.value)]
+      } else {
+        // just in case
+        return [State.Miss]
+      }
     }
   }
 

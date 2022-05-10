@@ -1,4 +1,4 @@
-import { IStaleWhileRevalidateAsyncCache } from 'extra-memoize'
+import { IStaleWhileRevalidateAsyncCache, State } from 'extra-memoize'
 import { CacheClient } from '@blackglory/cache-js'
 import { isNull } from '@blackglory/prelude'
 import { defaultFromString, defaultToString } from './utils'
@@ -13,11 +13,18 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
   , private fromString: (text: string) => T = defaultFromString
   ) {}
 
-  async get(key: string): Promise<T | undefined> {
-    const value = await this.client.get(this.namespace, key)
-    if (isNull(value)) return undefined
-
-    return this.fromString(value)
+  async get(key: string): Promise<[State.Miss] | [State.Hit, T]> {
+    const item = await this.client.getWithMetadata(this.namespace, key)
+    if (isNull(item)) {
+      return [State.Miss]
+    } else {
+      const elapsed = Date.now() - item.metadata.updatedAt
+      if (elapsed > this.timeToLive && elapsed < this.timeToLive + this.staleWhileRevalidate) {
+        return [State.Hit, this.fromString(item.value)]
+      } else {
+        return [State.Hit, this.fromString(item.value)]
+      }
+    }
   }
 
   async set(key: string, value: T): Promise<void> {
@@ -28,14 +35,5 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
     , this.timeToLive
     , this.staleWhileRevalidate
     )
-  }
-
-  async isStaleWhileRevalidate(key: string): Promise<boolean> {
-    const item = await this.client.getWithMetadata(this.namespace, key)
-    if (isNull(item)) return false
-
-    const elapsed = Date.now() - item.metadata.updatedAt
-    return elapsed > this.timeToLive
-        && elapsed < this.timeToLive + this.staleWhileRevalidate
   }
 }

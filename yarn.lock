@@ -2995,10 +2995,10 @@ extra-lazy@^1.0.0, extra-lazy@^1.0.1:
   resolved "https://registry.yarnpkg.com/extra-lazy/-/extra-lazy-1.1.1.tgz#47983311aa339caf985c3b169565024585a44d5f"
   integrity sha512-lkSqIqohXIo0MUByHLCk7EmFbMVrpoIltcBGV5TwZUJASsDgmvPUEruGR0Idp5TZaFwtS8B+ymBIrZpWJtZMhw==
 
-extra-memoize@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/extra-memoize/-/extra-memoize-0.5.0.tgz#0cfc3ee02b67dbc7a7db2a789701ac30d4720b99"
-  integrity sha512-KfMtzq+T9N2VSB0rtGAeJgVmJXDvzaNwSN59AkV4+HcnNZdyVLMtEJPXH65OFlqT7JlBNxw40UHPctxKEFhgHg==
+extra-memoize@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/extra-memoize/-/extra-memoize-0.6.0.tgz#db9e9566f5ab0ea410fd794bc9d0320d57f170b4"
+  integrity sha512-Q3DgOSSh20ezCt4s3x8WGgjAsLeRI3EKpsBfmsL/qwNa/ie02X81YlTt/Pw3Ai7M0R02OSd0pY46RO0/ZfVLGw==
   dependencies:
     "@blackglory/prelude" "^0.1.1"
     fast-json-stable-stringify "^2.1.0"
