@@ -21,6 +21,6 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   }
 
   async set(key: string, value: T): Promise<void> {
-    await this.client.set(this.namespace, key, this.toString(value), Infinity, Infinity)
+    await this.client.set(this.namespace, key, this.toString(value), null)
   }
 }

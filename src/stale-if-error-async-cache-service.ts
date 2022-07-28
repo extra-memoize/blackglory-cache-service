@@ -38,8 +38,7 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
       this.namespace
     , key
     , this.toString(value)
-    , this.timeToLive
-    , this.staleIfError
+    , this.timeToLive + this.staleIfError
     )
   }
 }

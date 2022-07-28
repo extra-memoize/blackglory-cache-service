@@ -32,8 +32,7 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
       this.namespace
     , key
     , this.toString(value)
-    , this.timeToLive
-    , this.staleWhileRevalidate
+    , this.timeToLive + this.staleWhileRevalidate
     )
   }
 }

@@ -41,8 +41,7 @@ export class StaleWhileRevalidateAndStaleIfErrorAsyncCacheService<T> implements 
       this.namespace
     , key
     , this.toString(value)
-    , this.timeToLive
-    , this.staleWhileRevalidate + this.staleIfError
+    , this.timeToLive + this.staleWhileRevalidate + this.staleIfError
     )
   }
 }
