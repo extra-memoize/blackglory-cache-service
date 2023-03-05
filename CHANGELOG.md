@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.5.3...v0.6.0) (2023-03-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* - The minimal version of Node.js is 16.
+- CommonJS => ESM.
+- It requires @blackglory/cache-js@^0.9.0
+
+* upgrade dependencies ([b32f35e](https://github.com/extra-memoize/blackglory-cache-service/commit/b32f35ef61407d879fd29ab383c425acc6cefce1))
+
 ### [0.5.3](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.5.2...v0.5.3) (2022-12-12)
 
 ### [0.5.2](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.5.1...v0.5.2) (2022-09-09)
