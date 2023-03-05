@@ -1,7 +1,7 @@
 import { IAsyncCache, State } from 'extra-memoize'
 import { CacheClient } from '@blackglory/cache-js'
 import { isNull } from '@blackglory/prelude'
-import { defaultFromString, defaultToString } from './utils'
+import { defaultFromString, defaultToString } from './utils.js'
 
 export class AsyncCacheService<T> implements IAsyncCache<T> {
   constructor(
@@ -12,7 +12,7 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   ) {}
 
   async get(key: string): Promise<[State.Miss] | [State.Hit, T]> {
-    const value = await this.client.get(this.namespace, key)
+    const value = await this.client.getItem(this.namespace, key)
     if (isNull(value)) {
       return [State.Miss]
     } else {
@@ -21,6 +21,6 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   }
 
   async set(key: string, value: T): Promise<void> {
-    await this.client.set(this.namespace, key, this.toString(value), null)
+    await this.client.setItem(this.namespace, key, this.toString(value), null)
   }
 }

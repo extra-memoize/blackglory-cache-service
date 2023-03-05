@@ -1,7 +1,7 @@
 import { IStaleIfErrorAsyncCache, State } from 'extra-memoize'
 import { CacheClient } from '@blackglory/cache-js'
 import { isNull } from '@blackglory/prelude'
-import { defaultFromString, defaultToString } from './utils'
+import { defaultFromString, defaultToString } from './utils.js'
 
 export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache<T> {
   constructor(
@@ -17,7 +17,7 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
   | [State.Miss]
   | [State.Hit | State.StaleIfError, T]
   > {
-    const item = await this.client.getWithMetadata(this.namespace, key)
+    const item = await this.client.getItemWithMetadata(this.namespace, key)
     if (isNull(item)) {
       return [State.Miss]
     } else {
@@ -34,7 +34,7 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
   }
 
   async set(key: string, value: T): Promise<void> {
-    await this.client.set(
+    await this.client.setItem(
       this.namespace
     , key
     , this.toString(value)
