@@ -13,6 +13,7 @@ class AsyncCacheService<T> implements IAsyncCache<T> {
   constructor(
     client: CacheClient
   , namespace: string
+  , timeToLive: number | null = null
   , toString: (value: T) => string = defaultToString
   , fromString: (text: string) => T = defaultFromString
   )

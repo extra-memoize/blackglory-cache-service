@@ -7,6 +7,7 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   constructor(
     private client: CacheClient
   , private namespace: string
+  , private timeToLive: number | null = null
   , private toString: (value: T) => string = defaultToString
   , private fromString: (text: string) => T = defaultFromString
   ) {}
@@ -21,6 +22,11 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   }
 
   async set(key: string, value: T): Promise<void> {
-    await this.client.setItem(this.namespace, key, this.toString(value), null)
+    await this.client.setItem(
+      this.namespace
+    , key
+    , this.toString(value)
+    , this.timeToLive
+    )
   }
 }
