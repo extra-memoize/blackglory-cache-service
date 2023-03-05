@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.6.0...v0.7.0) (2023-03-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changed the signature of `AsyncCacheService`
+
+* add parameter `timeToLive` for `AsyncCacheService` ([35c8e0c](https://github.com/extra-memoize/blackglory-cache-service/commit/35c8e0c4f908d7ed6960c46680531db19aabac85))
+
 ## [0.6.0](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.5.3...v0.6.0) (2023-03-05)
 
 
