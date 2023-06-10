@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.7.0...v0.7.1) (2023-06-10)
+
+
+### Bug Fixes
+
+* export src ([fce2ace](https://github.com/extra-memoize/blackglory-cache-service/commit/fce2ace3f4cb85c33307610798407d20a2b04823))
+
 ## [0.7.0](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.6.0...v0.7.0) (2023-03-05)
 
 
