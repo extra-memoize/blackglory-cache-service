@@ -60,7 +60,9 @@
     "typescript": "4.8",
     "typescript-transform-paths": "^3.4.6"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@blackglory/prelude": "^0.3.4"
+  },
   "peerDependencies": {
     "@blackglory/cache-js": "^0.9.0",
     "extra-memoize": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0"
