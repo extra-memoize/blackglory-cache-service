@@ -600,6 +600,14 @@
     "@blackglory/types" "^1.4.0"
     iterable-operator "^2.1.0"
 
+"@blackglory/errors@^2.4.3":
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-2.4.3.tgz#540739bf42a0be6962fc7c8230fafcbea0e4c2ae"
+  integrity sha512-boPqaLAG4zkcxUYSFkBsHOB1TANPtPAqDztReId/YUI7g9J2mJuL8j7h7OKyZL7J8WAxSXyDSuiyeGux34KCJQ==
+  dependencies:
+    "@blackglory/pass" "^1.1.0"
+    "@blackglory/types" "^1.4.0"
+
 "@blackglory/go@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@blackglory/go/-/go-0.1.1.tgz#c0c766a1381a72a1d1557f54e11208b4b287fb28"
@@ -742,6 +750,21 @@
     extra-utils "^3.0.0"
     iterable-operator "^2.2.0"
     justypes "^3.0.0"
+
+"@blackglory/prelude@^0.2.2":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@blackglory/prelude/-/prelude-0.2.4.tgz#c938cf04f0e10e19b5a429fd8e9c67d8ed668271"
+  integrity sha512-oURwBLnPSVL6UbKXc1Vtb2XUnePj2gG52/743D2swpPtSWEWT2s+HDvJpz3jy42KjyqrUaefTElIoWvnaJZxmQ==
+  dependencies:
+    "@blackglory/errors" "^2.4.3"
+    "@blackglory/go" "^1.1.2"
+    "@blackglory/log" "^1.3.3"
+    "@blackglory/pass" "^1.1.0"
+    extra-lazy "^1.3.1"
+    extra-promise "^4.4.0"
+    extra-utils "^4.0.0"
+    iterable-operator "^2.5.0"
+    justypes "^4.1.0"
 
 "@blackglory/structures@^0.11.4":
   version "0.11.6"
@@ -3121,6 +3144,14 @@ extra-utils@^3.0.0, extra-utils@^3.3.0, extra-utils@^3.3.1, extra-utils@^3.4.0, 
     justypes "^3.1.2"
     lodash "^4.17.21"
 
+extra-utils@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-4.0.1.tgz#a21870b3d468032b51f933779cfbf2f17a9a0498"
+  integrity sha512-rNht7xtADQSspKJ2bPJImdrBBWcgUiVSYz9j9jecRBxpNNwQ6DJize5CV0aKgkhsF04xdLPLGQPqcM9yFYGaNw==
+  dependencies:
+    justypes "^4.0.0"
+    lodash "^4.17.21"
+
 extra-websocket@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/extra-websocket/-/extra-websocket-0.3.0.tgz#f0d6b55db199ac85b7cd7270a54171974ab78a8f"
@@ -4481,6 +4512,11 @@ justypes@^3.0.0, justypes@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/justypes/-/justypes-3.1.2.tgz#f4cbdeeab5cca7c5e609f4db30480381961bbf99"
   integrity sha512-XPx3j+Og45DhqXqROKgmUzZ7DMBKL7xQbAfwTjouXVYUY72ydc1BEpO2ygIj1K674UPmSq8YQpkoq/B7RrtuSA==
+
+justypes@^4.0.0, justypes@^4.1.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/justypes/-/justypes-4.2.1.tgz#d2e68474f8156701538db8df4fe8767cad1d34f8"
+  integrity sha512-Z3+3pDBIobbrbKSSmjDOb5m1PF9Ksku7cTHSGHy0ah89D7CHFv08gEx6+b2KpA2huyzYyrhdZQX+Be9MeEfe1A==
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
