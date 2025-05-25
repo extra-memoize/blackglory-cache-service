@@ -21,10 +21,10 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
     if (isNull(item)) {
       return [State.Miss]
     } else {
-      const elapsed = Date.now() - item.metadata.updatedAt
-      if (elapsed <= this.timeToLive) {
+      const timestamp = Date.now()
+      if (item.metadata.updatedAt + this.timeToLive > timestamp) {
         return [State.Hit, this.fromString(item.value)]
-      } else if (elapsed <= this.timeToLive + this.staleIfError) {
+      } else if (item.metadata.updatedAt + this.timeToLive + this.staleIfError > timestamp) {
         return [State.StaleIfError, this.fromString(item.value)]
       } else {
         // just in case

@@ -13,14 +13,16 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
   , private fromString: (text: string) => T = defaultFromString
   ) {}
 
-  async get(key: string): Promise<[State.Miss] | [State.Hit, T]> {
+  async get(key: string): Promise<
+  | [State.Miss]
+  | [State.Hit | State.StaleWhileRevalidate, T]
+  > {
     const item = await this.client.getItemWithMetadata(this.namespace, key)
     if (isNull(item)) {
       return [State.Miss]
     } else {
-      const elapsed = Date.now() - item.metadata.updatedAt
-      if (elapsed > this.timeToLive && elapsed < this.timeToLive + this.staleWhileRevalidate) {
-        return [State.Hit, this.fromString(item.value)]
+      if (this.isStaleWhileRevalidate(item.metadata.updatedAt)) {
+        return [State.StaleWhileRevalidate, this.fromString(item.value)]
       } else {
         return [State.Hit, this.fromString(item.value)]
       }
@@ -34,5 +36,11 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
     , this.toString(value)
     , this.timeToLive + this.staleWhileRevalidate
     )
+  }
+
+  private isStaleWhileRevalidate(updatedAt: number): boolean {
+    const timestamp = Date.now()
+    return updatedAt + this.timeToLive <= timestamp
+        && updatedAt + this.timeToLive + this.staleWhileRevalidate > timestamp
   }
 }

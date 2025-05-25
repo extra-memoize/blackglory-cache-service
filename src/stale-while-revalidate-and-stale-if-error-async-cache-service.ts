@@ -22,12 +22,12 @@ export class StaleWhileRevalidateAndStaleIfErrorAsyncCacheService<T> implements 
     if (isNull(item)) {
       return [State.Miss]
     } else {
-      const elapsed = Date.now() - item.metadata.updatedAt
-      if (elapsed <= this.timeToLive) {
+      const timestamp = Date.now()
+      if (item.metadata.updatedAt + this.timeToLive > timestamp) {
         return [State.Hit, this.fromString(item.value)]
-      } else if (elapsed <= this.timeToLive + this.staleWhileRevalidate) {
+      } else if (item.metadata.updatedAt + this.timeToLive + this.staleWhileRevalidate > timestamp) {
         return [State.StaleWhileRevalidate, this.fromString(item.value)]
-      } else if (elapsed <= this.timeToLive + this.staleWhileRevalidate + this.staleIfError) {
+      } else if (item.metadata.updatedAt + this.timeToLive + this.staleWhileRevalidate + this.staleIfError > timestamp) {
         return [State.StaleIfError, this.fromString(item.value)]
       } else {
         // just in case
