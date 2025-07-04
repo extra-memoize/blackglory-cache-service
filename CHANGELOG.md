@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.7.3...v0.8.0) (2025-07-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* - It requires Node.js v22
+- Modified the constructors of all classes
+
+### Features
+
+* add support for `@blackglory/cache-js@^0.11.0` and ([80bc8c1](https://github.com/extra-memoize/blackglory-cache-service/commit/80bc8c1d5edaa045bed541110572fcc0fd7c560a))
+
 ### [0.7.3](https://github.com/extra-memoize/blackglory-cache-service/compare/v0.7.2...v0.7.3) (2025-05-25)
 
 
