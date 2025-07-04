@@ -1,23 +1,25 @@
 import { IAsyncCache, State } from 'extra-memoize'
 import { CacheClient } from '@blackglory/cache-js'
-import { isNull } from '@blackglory/prelude'
-import { defaultFromString, defaultToString } from './utils.js'
+import { isNull, JSONValue } from '@blackglory/prelude'
 
 export class AsyncCacheService<T> implements IAsyncCache<T> {
   constructor(
     private client: CacheClient
   , private namespace: string
-  , private timeToLive: number | null = null
-  , private toString: (value: T) => string = defaultToString
-  , private fromString: (text: string) => T = defaultFromString
+  , private options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive?: number | null
+    }
   ) {}
 
   async get(key: string): Promise<[State.Miss] | [State.Hit, T]> {
-    const value = await this.client.getItem(this.namespace, key)
+    const value = await this.client.getItemValue(this.namespace, key)
     if (isNull(value)) {
       return [State.Miss]
     } else {
-      return [State.Hit, this.fromString(value)]
+      return [State.Hit, this.options.fromJSONValue(value)]
     }
   }
 
@@ -25,8 +27,8 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
     await this.client.setItem(
       this.namespace
     , key
-    , this.toString(value)
-    , this.timeToLive
+    , this.options.toJSONValue(value)
+    , this.options.timeToLive ?? null
     )
   }
 }

@@ -13,9 +13,12 @@ class AsyncCacheService<T> implements IAsyncCache<T> {
   constructor(
     client: CacheClient
   , namespace: string
-  , timeToLive: number | null = null
-  , toString: (value: T) => string = defaultToString
-  , fromString: (text: string) => T = defaultFromString
+  , options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive?: number | null = null
+    }
   )
 }
 ```
@@ -26,10 +29,13 @@ class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileRevalidateA
   constructor(
     client: CacheClient
   , namespace: string
-  , timeToLive: number
-  , staleWhileRevalidate: number
-  , toString: (value: T) => string = defaultToString
-  , fromString: (text: string) => T = defaultFromString
+  , options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive: number
+      staleWhileRevalidate: number
+    }
   )
 }
 ```
@@ -40,10 +46,13 @@ class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache<T> {
   constructor(
     client: CacheClient
   , namespace: string
-  , timeToLive: number
-  , staleIfError: number
-  , toString: (value: T) => string = defaultToString
-  , fromString: (text: string) => T = defaultFromString
+  , options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive: number
+      staleIfError: number
+    }
   )
 }
 ```
@@ -54,11 +63,14 @@ class StaleWhileRevalidateAndStaleIfErrorAsyncCacheService<T> implements IStaleW
   constructor(
     client: CacheClient
   , namespace: string
-  , timeToLive: number
-  , staleWhileRevalidate: number
-  , staleIfError: number
-  , toString: (value: T) => string = defaultToString
-  , fromString: (text: string) => T = defaultFromString
+  , options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive: number
+      staleWhileRevalidate: number
+      staleIfError: number
+    }
   )
 }
 ```

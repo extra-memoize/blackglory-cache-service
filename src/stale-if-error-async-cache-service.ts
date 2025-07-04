@@ -1,31 +1,38 @@
 import { IStaleIfErrorAsyncCache, State } from 'extra-memoize'
 import { CacheClient } from '@blackglory/cache-js'
-import { isNull } from '@blackglory/prelude'
-import { defaultFromString, defaultToString } from './utils.js'
+import { isNull, JSONValue } from '@blackglory/prelude'
 
 export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache<T> {
   constructor(
     private client: CacheClient
   , private namespace: string
-  , private timeToLive: number
-  , private staleIfError: number
-  , private toString: (value: T) => string = defaultToString
-  , private fromString: (text: string) => T = defaultFromString
+  , private options: {
+      toJSONValue: (value: T) => JSONValue
+      fromJSONValue: (text: JSONValue) => T
+
+      timeToLive: number
+      staleIfError: number
+    }
   ) {}
 
   async get(key: string): Promise<
   | [State.Miss]
   | [State.Hit | State.StaleIfError, T]
   > {
-    const item = await this.client.getItemWithMetadata(this.namespace, key)
+    const item = await this.client.getItem(this.namespace, key)
     if (isNull(item)) {
       return [State.Miss]
     } else {
       const timestamp = Date.now()
-      if (item.metadata.updatedAt + this.timeToLive > timestamp) {
-        return [State.Hit, this.fromString(item.value)]
-      } else if (item.metadata.updatedAt + this.timeToLive + this.staleIfError > timestamp) {
-        return [State.StaleIfError, this.fromString(item.value)]
+      if (item.metadata.updatedAt + this.options.timeToLive > timestamp) {
+        return [State.Hit, this.options.fromJSONValue(item.value)]
+      } else if (
+        item.metadata.updatedAt
+      + this.options.timeToLive
+      + this.options.staleIfError
+      > timestamp
+      ) {
+        return [State.StaleIfError, this.options.fromJSONValue(item.value)]
       } else {
         // just in case
         return [State.Miss]
@@ -37,8 +44,8 @@ export class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache
     await this.client.setItem(
       this.namespace
     , key
-    , this.toString(value)
-    , this.timeToLive + this.staleIfError
+    , this.options.toJSONValue(value)
+    , this.options.timeToLive + this.options.staleIfError
     )
   }
 }
