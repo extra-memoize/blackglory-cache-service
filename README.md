@@ -15,7 +15,7 @@ class AsyncCacheService<T> implements IAsyncCache<T> {
   , namespace: string
   , options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive?: number | null = null
     }
@@ -31,7 +31,7 @@ class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileRevalidateA
   , namespace: string
   , options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive: number
       staleWhileRevalidate: number
@@ -48,7 +48,7 @@ class StaleIfErrorAsyncCacheService<T> implements IStaleIfErrorAsyncCache<T> {
   , namespace: string
   , options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive: number
       staleIfError: number
@@ -65,7 +65,7 @@ class StaleWhileRevalidateAndStaleIfErrorAsyncCacheService<T> implements IStaleW
   , namespace: string
   , options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive: number
       staleWhileRevalidate: number

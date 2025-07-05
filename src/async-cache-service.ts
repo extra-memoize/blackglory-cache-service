@@ -8,7 +8,7 @@ export class AsyncCacheService<T> implements IAsyncCache<T> {
   , private namespace: string
   , private options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive?: number | null
     }

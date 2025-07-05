@@ -8,7 +8,7 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
   , private namespace: string
   , private options: {
       toJSONValue: (value: T) => JSONValue
-      fromJSONValue: (text: JSONValue) => T
+      fromJSONValue: (json: JSONValue) => T
 
       timeToLive: number
       staleWhileRevalidate: number
