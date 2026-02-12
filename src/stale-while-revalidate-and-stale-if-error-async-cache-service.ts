@@ -25,7 +25,11 @@ export class StaleWhileRevalidateAndStaleIfErrorAsyncCacheService<T> implements 
       return [State.Miss]
     } else {
       const timestamp = Date.now()
-      if (item.metadata.updatedAt + this.options.timeToLive > timestamp) {
+      if (
+        item.metadata.updatedAt
+      + this.options.timeToLive
+      > timestamp
+      ) {
         return [State.Hit, this.options.fromJSONValue(item.value)]
       } else if (
         item.metadata.updatedAt

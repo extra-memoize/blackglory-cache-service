@@ -23,10 +23,22 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
     if (isNull(item)) {
       return [State.Miss]
     } else {
-      if (this.isStaleWhileRevalidate(item.metadata.updatedAt)) {
+      const timestamp = Date.now()
+      if (
+        item.metadata.updatedAt
+      + this.options.timeToLive
+      > timestamp
+      ) {
+        return [State.Hit, this.options.fromJSONValue(item.value)]
+      } else if (
+        item.metadata.updatedAt
+      + this.options.timeToLive
+      + this.options.staleWhileRevalidate
+      > timestamp
+      ) {
         return [State.StaleWhileRevalidate, this.options.fromJSONValue(item.value)]
       } else {
-        return [State.Hit, this.options.fromJSONValue(item.value)]
+        return [State.Miss]
       }
     }
   }
@@ -38,16 +50,5 @@ export class StaleWhileRevalidateAsyncCacheService<T> implements IStaleWhileReva
     , this.options.toJSONValue(value)
     , this.options.timeToLive + this.options.staleWhileRevalidate
     )
-  }
-
-  private isStaleWhileRevalidate(updatedAt: number): boolean {
-    const timestamp = Date.now()
-    return updatedAt
-         + this.options.timeToLive
-        <= timestamp
-        && updatedAt
-         + this.options.timeToLive
-         + this.options.staleWhileRevalidate
-         > timestamp
   }
 }
